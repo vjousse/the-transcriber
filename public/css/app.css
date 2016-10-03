@@ -1,0 +1,37 @@
+/* This file is for your main application css. */
+
+#elm-audio-player #progress-link {
+    padding-top: .700rem;
+    padding-bottom: .35rem;
+}
+
+
+#elm-audio-player #time-info {
+    padding-top:0;
+    margin-top:0;
+}
+
+#speaker-turns {
+    height: 80vh;
+    overflow-y: scroll;
+}
+
+.highlighted {
+    background-color: rgb(248, 222, 126);
+    padding: '2px 0';
+}
+
+.speaker-pace-activity {
+  z-index: 2000;
+  width: 14px;
+  height: 14px;
+  border: solid 2px transparent;
+  border-top-color: #0cc2aa;
+  border-left-color: #0cc2aa;
+  border-radius: 10px;
+  -webkit-animation: loading-bar-spinner 400ms linear infinite;
+  -moz-animation: loading-bar-spinner 400ms linear infinite;
+  -ms-animation: loading-bar-spinner 400ms linear infinite;
+  -o-animation: loading-bar-spinner 400ms linear infinite;
+  animation: loading-bar-spinner 400ms linear infinite; }
+

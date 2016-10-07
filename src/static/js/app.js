@@ -18,12 +18,13 @@
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+require( '../css/app.css' );
 
 import {SpeakerTurnEditor} from './editor';
 
 
 // ELM
-import Elm from './main';
+var Elm = require( '../../elm/Main' );
 const elmDiv = document.querySelector('#elm-target');
 
 let appState = {};

@@ -30,6 +30,11 @@ var commonConfig = {
       {
         test: /\.(eot|ttf|woff|woff2|svg)$/,
         loader: 'file-loader'
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
       }
     ]
   },

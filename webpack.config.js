@@ -95,7 +95,7 @@ if ( TARGET_ENV === 'production' ) {
 
   module.exports = merge( commonConfig, {
 
-    entry: path.join( __dirname, 'src/static/index.js' ),
+    entry: path.join( __dirname, 'src/static/js/lib.js' ),
 
     module: {
       loaders: [

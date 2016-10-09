@@ -2,9 +2,6 @@ module Main exposing (..)
 
 import Array exposing (Array)
 import Dict exposing (Dict)
-import Dom
-import Dom.Size exposing (Boundary(..))
-import Dom.Scroll
 import Html.App as App
 
 
@@ -15,24 +12,22 @@ import Html.Attributes exposing (id, class)
 import Keyboard
 import List.Extra as LE
 import Set exposing (Set)
-import Task
 
 
 -- App imports
 
 import Audio.Player exposing (Msg(Backward, Forward, Toggle))
-import Keyboard.Extra
 import Init
 import Layout
 import Messages exposing (Msg(..))
 import Model exposing (Model)
 import Ports
 import Tasks
-import Translation.Utils exposing (..)
 import Types exposing (DomType(..), LastLoadedInfo, SpeakerTurn, TurnContent, VisibleIndices)
 import Utils
 
 
+main : Program Init.Flags
 main =
     App.programWithFlags
         { init = Init.init

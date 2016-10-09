@@ -1,4 +1,4 @@
-module Init exposing (init)
+module Init exposing (init, Flags)
 
 import Array exposing (Array)
 import Dict exposing (Dict)

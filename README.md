@@ -8,18 +8,18 @@ Open source transcribing tool. Respects the privacy of your data, can be plugged
 
 AHAH, you thought you wouldn't need any javascript stuff. You're screwed.
 
-    npm install --save-dev babel-cli babel-preset-latest
+    npm install
 
 
 ## Hack to use the unpublished Dom.Size module
 
-Go to `src/` directory and install dependencies by running `elm make Main.elm`. It should start downloading dependencies and the complain about `Dom.Size` module.
+Install dependencies by running `elm make src/elm/Main.elm`. It should start downloading dependencies and then complain about `Dom.Size` module.
 
     I cannot find module 'Dom.Size'.
 
     Module 'Main' is trying to import it.
 
-Inside the `src/` folder, open the `elm-stuff/packages/elm-lang/dom/1.1.0/elm-package.json` file and change
+Open the `elm-stuff/packages/elm-lang/dom/1.1.0/elm-package.json` file and change
 
 ```elm
     "exposed-modules": [
@@ -54,16 +54,12 @@ module Dom.Size exposing (height, width, Boundary(..))
 
 Then, the code should compile just fine.
 
-## Compile
+## Compile and run
 
-Go to `src/` dir and then compile using:
+    npm start
 
-    elm make Main.elm --output=../public/elm.js
-
-## Run
-
-Compile and then open `public/index.html`
-
+Open [http://localhost:8080/](http://localhost:8080/) in your browser and enjoy.
+ 
 ## Elm live
 
 Go to `src/` directory and then launch:

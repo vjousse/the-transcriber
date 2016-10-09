@@ -1,11 +1,50 @@
+var Elm = require( '../../elm/Main' );
+
 export class SpeakerTurnEditor {
 
-  constructor(elmApp, onStateChange) {
-    this.elmApp = elmApp;
-    this.onStateChange = onStateChange;
+  constructor(elmTarget) {
+
+    if(!this.isElement(elmTarget)) {
+      elmTarget = document.querySelector(elmTarget);
+    }
+
+    this.elmApp = Elm.Main.embed(elmTarget, {
+        //mediaUrl: "http://localhost/lcp_q_gov.mp3"
+        mediaUrl: "http://localhost/resumemo.mp3"
+      , mediaType: "audio/mp3"
+    });
+
+
+    this.appState = {};
+    this.appState.turns = {};
+    this.appState.turns.currentTurn = -1;
+    this.appState.turns.speakerTurns = [];
+
     this.wirePorts(elmApp);
   }
 
+  // http://stackoverflow.com/questions/384286/javascript-isdom-how-do-you-check-if-a-javascript-object-is-a-dom-object
+  isElement(obj) {
+    try {
+      //Using W3 DOM2 (works for FF, Opera and Chrom)
+      return obj instanceof HTMLElement;
+    }
+    catch(e){
+      //Browsers not supporting W3 DOM2 don't have HTMLElement and
+      //an exception is thrown and we end up here. Testing some
+      //properties that all elements have. (works on IE7)
+      return (typeof obj==="object") &&
+        (obj.nodeType===1) && (typeof obj.style === "object") &&
+        (typeof obj.ownerDocument ==="object");
+    }
+  }
+
+  onStateChange(newState) {
+    //Merge new state into old one
+    for (var attrname in newState) { 
+      this.appState.turns[attrname] = newState[attrname];
+    }
+  }
 
   wirePorts(app) {
 

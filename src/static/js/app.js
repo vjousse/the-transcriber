@@ -27,31 +27,4 @@ require( '../css/app.css' );
 
 import {SpeakerTurnEditor} from './editor';
 
-
-// ELM
-var Elm = require( '../../elm/Main' );
-const elmDiv = document.querySelector('#elm-target');
-
-let appState = {};
-appState.turns = {};
-appState.turns.currentTurn = -1;
-appState.turns.speakerTurns = [];
-
-
-if (elmDiv) {
-
-  var app = Elm.Main.embed(elmDiv, {
-      //mediaUrl: "http://localhost/lcp_q_gov.mp3"
-      mediaUrl: "http://localhost/resumemo.mp3"
-    , mediaType: "audio/mp3"
-  });
-
-  let speakerTurnEditor = new SpeakerTurnEditor(
-    app
-    , (newState) => {
-      //Merge new state into old one
-      for (var attrname in newState) { appState.turns[attrname] = newState[attrname]; }
-    }
-  );
-
-}
+let speakerTurnEditor = new SpeakerTurnEditor('#elm-target');

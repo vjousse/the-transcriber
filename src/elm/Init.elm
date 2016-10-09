@@ -57,9 +57,9 @@ init flags =
         }
             ! [ Cmd.batch
                     [ Cmd.map MsgAudioPlayer audioPlayerCmds
-                      --, Tasks.getSpeakerData "http://localhost/lcp_q_gov_ckeditor.json"
+                    , Tasks.getSpeakerData "http://localhost:8080/examples/lcp_q_gov_ckeditor.json"
                       --, Tasks.getSpeakerData "http://localhost/lcp_q_gov_api_sample.json"
                       --, Tasks.getSpeakerData "http://localhost/crb_jeudi_25_fevrier.json"
-                    , Tasks.getSpeakerData "http://localhost/crb_jeudi_25_fevrier_ckeditor.json"
+                      --, Tasks.getSpeakerData "http://localhost/crb_jeudi_25_fevrier_ckeditor.json"
                     ]
               ]

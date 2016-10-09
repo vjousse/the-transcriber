@@ -59,11 +59,3 @@ Then, the code should compile just fine.
     npm start
 
 Open [http://localhost:8080/](http://localhost:8080/) in your browser and enjoy.
- 
-## Elm live
-
-Go to `src/` directory and then launch:
-
-    elm-live Main.elm --dir=../public/ --output=../public/js/elm.js
-
-Now, open your browser to [http://localhost:8000/](http://localhost:8000/).

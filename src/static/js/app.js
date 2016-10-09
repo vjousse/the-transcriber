@@ -18,6 +18,9 @@
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+require( '../css/theme/bootstrap/dist/css/bootstrap.css' );
+require( '../css/theme/styles/app.css' );
+require( '../css/theme/styles/font.css' );
 require( '../css/app.css' );
 
 import {SpeakerTurnEditor} from './editor';

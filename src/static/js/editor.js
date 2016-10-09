@@ -20,7 +20,7 @@ export class SpeakerTurnEditor {
     this.appState.turns.currentTurn = -1;
     this.appState.turns.speakerTurns = [];
 
-    this.wirePorts(elmApp);
+    this.wirePorts(this.elmApp);
   }
 
   // http://stackoverflow.com/questions/384286/javascript-isdom-how-do-you-check-if-a-javascript-object-is-a-dom-object
@@ -47,6 +47,7 @@ export class SpeakerTurnEditor {
   }
 
   wirePorts(app) {
+
 
     app.ports.setCurrentTime.subscribe(function(time) {
       var audio = document.getElementById('audio-player');
@@ -76,17 +77,14 @@ export class SpeakerTurnEditor {
       audio.pause();
     });
 
-    app.ports.sendCurrentTime.subscribe(function(timestamp) {
-      this.highlightWord(appState.turns, timestamp);
+    app.ports.sendCurrentTime.subscribe((timestamp) => {
+      this.highlightWord(this.appState.turns, timestamp);
     });
 
 
-    app.ports.sendSpeakerTurn.subscribe(function({index, speakerTurn}) {
+    app.ports.sendSpeakerTurn.subscribe(({index, speakerTurn}) => {
       console.log(speakerTurn);
-      this.loadSpeaker(appState.turns, index, speakerTurn);
-
-      app.ports.reactOk.send(null);
-
+      this.loadSpeaker(this.appState.turns, index, speakerTurn);
     });
   }
 

@@ -54,44 +54,4 @@ if (elmDiv) {
     }
   );
 
-  app.ports.setCurrentTime.subscribe(function(time) {
-    var audio = document.getElementById('audio-player');
-    console.log("Time: " + time, audio);
-
-    audio.currentTime = time;
-  });
-
-  app.ports.setPlaybackRate.subscribe(function(rate) {
-    var audio = document.getElementById('audio-player');
-    console.log("Rate: " + rate, audio);
-
-    audio.playbackRate = rate;
-  });
-
-  app.ports.play.subscribe(function() {
-    var audio = document.getElementById('audio-player');
-    console.log("Play: ", audio);
-
-    audio.play();
-  });
-
-  app.ports.pause.subscribe(function() {
-    var audio = document.getElementById('audio-player');
-    console.log("Pause: ", audio);
-
-    audio.pause();
-  });
-
-  app.ports.sendCurrentTime.subscribe(function(timestamp) {
-    speakerTurnEditor.highlightWord(appState.turns, timestamp);
-  });
-
-
-  app.ports.sendSpeakerTurn.subscribe(function({index, speakerTurn}) {
-    console.log(speakerTurn);
-    speakerTurnEditor.loadSpeaker(appState.turns, index, speakerTurn);
-
-    app.ports.reactOk.send(null);
-
-  });
 }

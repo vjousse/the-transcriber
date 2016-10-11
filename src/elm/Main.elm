@@ -56,15 +56,14 @@ update msg model =
                 Types.SpeakerTurnDiv ->
                     ( model, Cmd.none )
                         |> updateSpeakerDivHeight index height
-                        |> loadMoreSpeakersIfNeeded
 
+        --|> loadMoreSpeakersIfNeeded
         FetchSucceed speakerTurns ->
             let
                 -- Send the first speaker
                 cmds =
                     Cmd.batch
-                        (List.map
-                            (\value -> loadSpeakerIndexCmd value speakerTurns)
+                        (List.map (\value -> loadSpeakerIndexCmd value speakerTurns)
                             [ 0 ]
                         )
             in
@@ -141,7 +140,10 @@ update msg model =
                     Debug.log "[Elm::firstLastVisibleIndexes]" (firstLastVisibleIndexes model)
             in
                 ( { model | scrollTop = scrollTop }, Cmd.none )
-                    |> loadMoreSpeakersIfNeeded
+
+
+
+--|> loadMoreSpeakersIfNeeded
 
 
 loadSpeakerIndexCmd : Int -> Array SpeakerTurn -> Cmd Messages.Msg
@@ -169,8 +171,7 @@ infoOfLastLoaded speakerTurns =
             loadedSpeakers speakerTurns
 
         loadedSpeakersHeight =
-            List.foldl
-                (\turn acc -> (Maybe.withDefault 0 turn.divHeight) + acc)
+            List.foldl (\turn acc -> (Maybe.withDefault 0 turn.divHeight) + acc)
                 0
                 loadedSpeakersList
     in
@@ -384,8 +385,7 @@ getDivHeight index ( model, messages ) =
         ( model
         , Cmd.batch
             [ messages
-            , Tasks.getDomHeight
-                (Utils.speakerIndexContainerToCssId index)
+            , Tasks.getDomHeight (Utils.speakerIndexContainerToCssId index)
                 index
                 Types.SpeakerTurnDiv
             ]

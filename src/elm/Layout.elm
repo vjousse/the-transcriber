@@ -8,6 +8,7 @@ import Html.Events exposing (onClick, on)
 import Json.Decode as Json exposing ((:=))
 import List
 import String
+import Json.Encode
 
 
 -- App import
@@ -223,7 +224,8 @@ speakerTurn ( index, speakerTurn ) =
                         [ class "summernote note-air-editor note-editable panel-body"
                         , id <| Utils.speakerIndexToCssId index
                         ]
-                        [ div [ class "speaker-pace-activity" ] []
+                        [ --div [ class "speaker-pace-activity" ] []
+                          div [ (Html.Attributes.property "innerHTML" (Json.Encode.string (Maybe.withDefault "" speakerTurn.htmlContent))) ] []
                         ]
                     ]
                 ]

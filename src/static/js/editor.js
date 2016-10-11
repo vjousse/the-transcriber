@@ -12,6 +12,7 @@ export class SpeakerTurnEditor {
       mediaUrl: "http://localhost:8080/examples/lcp_q_gov.mp3"
         //mediaUrl: "http://localhost/resumemo.mp3"
       , mediaType: "audio/mp3"
+      , jsonUrl: "http://localhost:8080/examples/lcp_q_gov_ckeditor.json"
     });
 
 

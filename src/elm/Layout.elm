@@ -1,11 +1,10 @@
 module Layout exposing (..)
 
 import Array exposing (Array)
-import Html.App as App
 import Html exposing (..)
-import Html.Attributes exposing (alt, attribute, class, contenteditable, id, href, placeholder, src, type', style)
+import Html.Attributes exposing (alt, attribute, class, contenteditable, id, href, placeholder, src, type_, style)
 import Html.Events exposing (onClick, on)
-import Json.Decode as Json exposing ((:=))
+import Json.Decode as Json
 import List
 import String
 import Json.Encode
@@ -64,7 +63,7 @@ contentView model =
 headerView : Model -> Html Msg
 headerView model =
     div [ class "app-header" ]
-        [ App.map MsgAudioPlayer (Audio.View.view model.audioPlayer)
+        [ Html.map MsgAudioPlayer (Audio.View.view model.audioPlayer)
         ]
 
 

@@ -2,7 +2,7 @@ module Audio.View exposing (view)
 
 import Char
 import Html exposing (a, audio, button, div, h1, h2, i, li, span, text, ul, Attribute, Html)
-import Html.Attributes exposing (class, controls, href, id, type', src, style)
+import Html.Attributes exposing (class, controls, href, id, type_, src, style)
 import Html.Events exposing (on, onClick)
 import Set exposing (Set)
 import String
@@ -50,7 +50,7 @@ view model =
         ]
         [ audio
             [ src model.mediaUrl
-            , type' model.mediaType
+            , type_ model.mediaType
             , controls model.defaultControls
             , onTimeUpdate TimeUpdate
             , onPause SetPaused

@@ -2,7 +2,6 @@ module Main exposing (..)
 
 import Array exposing (Array)
 import Dict exposing (Dict)
-import Html.App as App
 
 
 --import TimeTravel.Html.App as TimeTravel
@@ -27,9 +26,9 @@ import Types exposing (DomType(..), LastLoadedInfo, SpeakerTurn, TurnContent, Vi
 import Utils
 
 
-main : Program Init.Flags
+main : Program Init.Flags Model Messages.Msg
 main =
-    App.programWithFlags
+    Html.programWithFlags
         { init = Init.init
         , view = view
         , update = update
@@ -40,14 +39,14 @@ main =
 update : Messages.Msg -> Model -> ( Model, Cmd Messages.Msg )
 update msg model =
     case Debug.log "[Elm::Main Update] " msg of
-        DomHeightFailed id domError ->
+        DomHeight id index divType (Err domError) ->
             let
                 debug =
                     Debug.log "[Elm::DomHeightFailed]" domError
             in
                 model ! []
 
-        DomHeightSucceed id index divType height ->
+        DomHeight id index divType (Ok height) ->
             case divType of
                 Types.SpeakerTurnsDiv ->
                     ( model, Cmd.none )
@@ -58,7 +57,7 @@ update msg model =
                         |> updateSpeakerDivHeight index height
 
         --|> loadMoreSpeakersIfNeeded
-        FetchSucceed speakerTurns ->
+        Fetch (Ok speakerTurns) ->
             let
                 -- Send the first speaker
                 cmds =
@@ -72,7 +71,7 @@ update msg model =
                 , cmds
                 )
 
-        FetchFail error ->
+        Fetch (Err error) ->
             let
                 debug =
                     Debug.log "[Elm] FetchFail" error
@@ -242,7 +241,7 @@ firstLastVisibleIndexes model =
                 )
                 ( 0, Array.empty )
                 model.speakerTurns
-                |> snd
+                |> Tuple.second
 
         positionsList =
             Array.toList positions

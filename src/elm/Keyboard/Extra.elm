@@ -39,7 +39,7 @@ module Keyboard.Extra
 import Keyboard exposing (KeyCode)
 import Dict exposing (Dict)
 import Set exposing (Set)
-import Json.Decode as Json exposing ((:=))
+import Json.Decode as Json
 import Keyboard.Arrows as Arrows exposing (Arrows)
 
 
@@ -207,7 +207,7 @@ keyFromCode code =
     codeDict
         |> Dict.get code
         |> Maybe.withDefault ( Other, Nothing )
-        |> fst
+        |> Tuple.first
 
 
 maybeStringFromCode : KeyCode -> Maybe String
@@ -215,7 +215,7 @@ maybeStringFromCode code =
     codeDict
         |> Dict.get code
         |> Maybe.withDefault ( Other, Nothing )
-        |> snd
+        |> Tuple.second
 
 
 stringFromCode : String -> KeyCode -> String
@@ -223,15 +223,15 @@ stringFromCode default code =
     codeDict
         |> Dict.get code
         |> Maybe.withDefault ( Other, Nothing )
-        |> snd
+        |> Tuple.second
         |> Maybe.withDefault default
 
 
 toCode : Key -> KeyCode
 toCode key =
     codeBook
-        |> List.filter (\n -> key == (n |> snd |> fst))
-        |> List.map fst
+        |> List.filter (\n -> key == (n |> Tuple.second |> Tuple.first))
+        |> List.map Tuple.first
         |> List.head
         |> Maybe.withDefault 0
 
@@ -246,7 +246,7 @@ toCode key =
 -}
 targetKey : Json.Decoder Key
 targetKey =
-    Json.map keyFromCode ("keyCode" := Json.int)
+    Json.map keyFromCode (Json.field "keyCode" Json.int)
 
 
 {-| These are all the keys that have names in `Keyboard.Extra`.

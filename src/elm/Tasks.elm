@@ -3,9 +3,8 @@ module Tasks exposing (..)
 import Array exposing (Array)
 import Dom
 import Dom.Size exposing (Boundary(..))
-import Dom.Scroll
 import Http
-import Json.Decode as Json exposing ((:=))
+import Json.Decode as Json
 import Task
 
 
@@ -17,22 +16,22 @@ import Types exposing (SpeakerTurn, DomType(..))
 
 getDomHeight : Dom.Id -> Int -> DomType -> Cmd Messages.Msg
 getDomHeight id index domType =
-    Task.perform (DomHeightFailed id) (DomHeightSucceed id index domType) (Dom.Size.height Dom.Size.VisibleContentWithBordersAndMargins id)
+    Task.attempt (DomHeight id index domType) (Dom.Size.height Dom.Size.VisibleContentWithBordersAndMargins id)
 
 
 getSpeakerData : String -> Cmd Messages.Msg
 getSpeakerData url =
-    Task.perform FetchFail FetchSucceed (Http.get decodeSpeakerResponse url)
+    Http.send Fetch (Http.get url decodeSpeakerResponse)
 
 
 decodeSpeakerTurn : Json.Decoder SpeakerTurn
 decodeSpeakerTurn =
-    Json.object5 speakerTurnBuilder
-        ("name" := Json.string)
-        ("start" := Json.float)
-        ("end" := Json.float)
-        (Json.maybe ("htmlContent" := Json.string))
-        (Json.maybe ("textContent" := Json.string))
+    Json.map5 speakerTurnBuilder
+        (Json.field "name" Json.string)
+        (Json.field "start" Json.float)
+        (Json.field "end" Json.float)
+        (Json.maybe (Json.field "htmlContent" Json.string))
+        (Json.maybe (Json.field "textContent" Json.string))
 
 
 speakerTurnBuilder : String -> Float -> Float -> Maybe String -> Maybe String -> SpeakerTurn

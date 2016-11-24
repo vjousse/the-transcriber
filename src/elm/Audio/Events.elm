@@ -36,8 +36,8 @@ onClickX msg =
 
 decodeClickInformation : Decoder Audio.Player.ClickInformation
 decodeClickInformation =
-    object5 Audio.Player.ClickInformation
-        ("offsetX" := int)
+    map5 Audio.Player.ClickInformation
+        (field "offsetX" int)
         (Json.at [ "target", "offsetWidth" ] Json.int)
         (Json.at [ "target", "id" ] Json.string)
         (Json.at [ "target", "offsetParent", "id" ] Json.string)

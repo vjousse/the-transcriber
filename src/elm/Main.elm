@@ -413,8 +413,8 @@ view model =
         [ id "main"
         ]
         [ div [ class "app", id "app" ]
-            [ Layout.asideView model
-            , Layout.contentView model
+            [ --Layout.asideView model
+              Layout.contentView model
             ]
         ]
 

@@ -1,4 +1,5 @@
-# the-transcriber
+# The transcriber
+
 Open source transcribing tool. Respects the privacy of your data, can be plugged to many external tools.
 
 
@@ -19,7 +20,7 @@ Install dependencies by running `elm make src/elm/Main.elm`. It should start dow
 
     Module 'Main' is trying to import it.
 
-Open the `elm-stuff/packages/elm-lang/dom/1.1.0/elm-package.json` file and change
+Open the `elm-stuff/packages/elm-lang/dom/1.1.1/elm-package.json` file and change
 
 ```elm
     "exposed-modules": [

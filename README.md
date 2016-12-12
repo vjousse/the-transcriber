@@ -10,6 +10,7 @@ Open source transcribing tool. Respects the privacy of your data, can be plugged
 AHAH, you thought you wouldn't need any javascript stuff. You're screwed.
 
     npm install
+    bower install
 
 
 ## Hack to use the unpublished Dom.Size module

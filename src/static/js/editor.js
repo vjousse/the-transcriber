@@ -170,7 +170,6 @@ export class SpeakerTurnEditor {
 
   highlightWord(state, timestamp) {
 
-    console.log("Highlighting");
     let speakerTurnIndex = state.speakerTurns.findIndex(function(element) {
 
       if (element.start <= timestamp && element.end >= timestamp) {
@@ -178,8 +177,6 @@ export class SpeakerTurnEditor {
       }
 
     });
-
-    console.log(speakerTurnIndex);
 
     if (speakerTurnIndex != -1) {
 
@@ -202,7 +199,7 @@ export class SpeakerTurnEditor {
       var spans = editor.document.$.getElementsByClassName("word");
       var found = false;
       var span = Array.prototype.find.call( spans, function(elem){
-          console.log(parseFloat(elem.dataset.start), timestamp);
+          //console.log("Ckeditor", parseFloat(elem.dataset.start), timestamp);
           if(parseFloat(elem.dataset.start) >= timestamp) {
               return true;
           } else {

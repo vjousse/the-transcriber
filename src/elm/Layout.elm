@@ -138,7 +138,7 @@ bodyView model =
                     [ div []
                         [ Html.node "custom-text-editor"
                             [ attribute "content" model.testContent
-                              --attribute "content" "My test <strong>content</strong> hey"
+                            , attribute "time" (model.audioPlayer.currentTime |> toString)
                             , onMyElementChange ContentChanged
                             ]
                             []

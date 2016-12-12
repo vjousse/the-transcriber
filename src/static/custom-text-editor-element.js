@@ -7,6 +7,10 @@ class CustomTextEditorElement extends HTMLElement {
 
     this.init = false;
 
+    shadow.innerHTML = '<style>' +
+    '.highlighted {background-color: rgb(248, 222, 126);}' +
+    '</style>';
+
     this.mainDiv = document.createElement('div');
 
     this.mainDiv.setAttribute('contenteditable', 'true');
@@ -30,20 +34,50 @@ class CustomTextEditorElement extends HTMLElement {
   }
 
   // Monitor the 'name' attribute for changes.
-  static get observedAttributes() {return ['content']; }
+  static get observedAttributes() {return ['content', 'time']; }
 
   // Respond to attribute changes.
   attributeChangedCallback(attr, oldValue, newValue) {
 
     if (attr == 'content') {
-      //this.textContent = `Hello, ${newValue}`;
 
       if(!this.init) {
         this.mainDiv.innerHTML = newValue;
         this.init=true;
       }
 
+    } else if (attr == 'time') {
+
+      var timestamp = parseInt(newValue)/1000;
+      console.log("Custom time changed", timestamp);
+
+      // Unhighlight stuff already highlighted
+      var spansHighlighted = this.mainDiv.getElementsByClassName("highlighted");
+      Array.prototype.find.call( spansHighlighted, function(elem){
+        elem.classList.remove("highlighted");
+      });
+
+
+      if(timestamp == 0) return;
+
+      var spans = this.mainDiv.getElementsByClassName("word");
+      console.log(spans);
+      var found = false;
+
+      var span = Array.prototype.find.call( spans, function(elem){
+          if(parseFloat(elem.dataset.start) >= timestamp) {
+              return true;
+          } else {
+              return false;
+          }
+      });
+
+      if(span) {
+        span.classList.add('highlighted');
+      }
+
     }
+
   }
 
 }

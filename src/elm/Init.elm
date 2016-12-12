@@ -55,7 +55,7 @@ init flags =
         , visibleIndices = []
         , loadedSpeakerTurns = Dict.empty
         , visibleMargin = 300
-        , testContent = "This is some <b>test</b> content"
+        , testContent = "<p><strong>Locuteur S0 :</strong> <span class='word' data-start='0.01'>publique </span><span class='word' data-start='0.73'>et </span><span class='word' data-start='0.84'>en </span><span class='word' data-start='0.96'>2004 </span></p>This is some <b>test</b> content"
         }
             ! [ Cmd.batch
                     [ Cmd.map MsgAudioPlayer audioPlayerCmds

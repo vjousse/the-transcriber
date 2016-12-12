@@ -1,0 +1,18 @@
+{
+  "name": "the-transcriber",
+  "homepage": "https://github.com/the-transcriber",
+  "authors": [
+    "Vincent Jousse <vincent@jousse.org>"
+  ],
+  "description": "Open source trancription tool",
+  "main": "dist/index.html",
+  "license": "BSD-3-Clause",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "polymer-quill": "chuckh/polymer-quill"
+  }
+}

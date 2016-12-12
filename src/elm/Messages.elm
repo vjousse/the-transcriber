@@ -15,6 +15,7 @@ import Types exposing (SpeakerTurn, TurnContent)
 
 type Msg
     = DomHeight Dom.Id Int Types.DomType (Result Dom.Error Float)
+    | ContentChanged String
     | Fetch (Result Http.Error (Array SpeakerTurn))
     | KeyDown Keyboard.KeyCode
     | KeyUp Keyboard.KeyCode

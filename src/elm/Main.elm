@@ -39,6 +39,10 @@ main =
 update : Messages.Msg -> Model -> ( Model, Cmd Messages.Msg )
 update msg model =
     case Debug.log "[Elm::Main Update] " msg of
+        --case msg of
+        ContentChanged newContent ->
+            ( { model | testContent = newContent }, Cmd.none )
+
         DomHeight id index divType (Err domError) ->
             let
                 debug =

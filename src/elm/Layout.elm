@@ -2,7 +2,7 @@ module Layout exposing (..)
 
 import Array exposing (Array)
 import Html exposing (..)
-import Html.Attributes exposing (alt, attribute, class, contenteditable, id, href, placeholder, src, type_, style)
+import Html.Attributes exposing (alt, attribute, class, contenteditable, id, href, placeholder, name, src, type_, style, value)
 import Html.Events exposing (onClick, on)
 import Json.Decode as Json
 import List
@@ -135,7 +135,15 @@ bodyView model =
                     , id "speaker-turns"
                     , onScroll UserScroll
                     ]
-                    [ div [ class "streamline b-l m-b m-l" ]
+                    [ div []
+                        [ Html.node "custom-text-editor"
+                            [ attribute "content" model.testContent
+                              --attribute "content" "My test <strong>content</strong> hey"
+                            , onMyElementChange ContentChanged
+                            ]
+                            []
+                        ]
+                    , div [ class "streamline b-l m-b m-l" ]
                         [ speakerTurns model ]
                     ]
                 , div [ class "col-sm-4 col-lg-3" ]
@@ -228,6 +236,16 @@ speakerTurn ( index, speakerTurn ) =
                     ]
                 ]
             ]
+
+
+onMyElementChange : (String -> msg) -> Html.Attribute msg
+onMyElementChange message =
+    on "content-changed" <| (Json.map message decodeMyElementEvent)
+
+
+decodeMyElementEvent : Json.Decoder String
+decodeMyElementEvent =
+    Json.at [ "detail", "htmlContent" ] Json.string
 
 
 onScroll : (Float -> msg) -> Html.Attribute msg

@@ -55,6 +55,7 @@ init flags =
         , visibleIndices = []
         , loadedSpeakerTurns = Dict.empty
         , visibleMargin = 300
+        , testContent = "This is some <b>test</b> content"
         }
             ! [ Cmd.batch
                     [ Cmd.map MsgAudioPlayer audioPlayerCmds

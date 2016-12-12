@@ -30,4 +30,5 @@ type alias Model =
     , visibleIndices : List Int
     , loadedSpeakerTurns : Dict Int Float
     , visibleMargin : Float
+    , testContent : String
     }

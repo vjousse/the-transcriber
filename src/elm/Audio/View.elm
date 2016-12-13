@@ -1,6 +1,5 @@
 module Audio.View exposing (view)
 
-import Char
 import Html exposing (a, audio, button, div, h1, h2, i, li, span, text, ul, Attribute, Html)
 import Html.Attributes exposing (class, controls, href, id, type_, src, style)
 import Html.Events exposing (on, onClick)
@@ -36,7 +35,6 @@ import Audio.Events
         , onClickX
         )
 import Keyboard.Extra
-import Types exposing (Milliseconds)
 
 
 -- VIEW

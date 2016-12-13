@@ -4,7 +4,6 @@ module Audio.Player exposing (Model, ClickInformation, Msg(..), init, update, su
 
 import Debug
 import Keyboard
-import List
 import Set exposing (Set)
 import Update.Extra
 import Types exposing (Milliseconds)

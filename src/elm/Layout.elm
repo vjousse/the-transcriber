@@ -7,7 +7,6 @@ import Html.Events exposing (onClick, on)
 import Json.Decode as Json
 import List
 import String
-import Json.Encode
 
 
 -- App import
@@ -18,7 +17,7 @@ import Icons
 import Messages exposing (Msg(..))
 import Model exposing (Model)
 import Translation.Utils exposing (..)
-import Types exposing (SpeakerTurn, SpeakerTurn)
+import Types exposing (Milliseconds, SpeakerTurn, SpeakerTurn)
 import Utils
 
 
@@ -194,11 +193,11 @@ exportItem model title extension icon =
 
 speakerTurns : Model -> Html Msg
 speakerTurns model =
-    div [] (List.map speakerTurn (Array.toIndexedList model.speakerTurns))
+    div [] (List.map (speakerTurn model.audioPlayer.currentTime) (Array.toIndexedList model.speakerTurns))
 
 
-speakerTurn : ( Int, SpeakerTurn ) -> Html Msg
-speakerTurn ( index, speakerTurn ) =
+speakerTurn : Milliseconds -> ( Int, SpeakerTurn ) -> Html Msg
+speakerTurn currentTime ( index, speakerTurn ) =
     let
         timeConfig =
             { hSeparator = ":"
@@ -231,7 +230,13 @@ speakerTurn ( index, speakerTurn ) =
                         , id <| Utils.speakerIndexToCssId index
                         ]
                         [ --div [ class "speaker-pace-activity" ] []
-                          div [ (Html.Attributes.property "innerHTML" (Json.Encode.string (Maybe.withDefault "" speakerTurn.htmlContent))) ] []
+                          --div [ (Html.Attributes.property "innerHTML" (Json.Encode.string (Maybe.withDefault "" speakerTurn.htmlContent))) ] []
+                          Html.node "custom-text-editor"
+                            [ attribute "content" (Maybe.withDefault "" speakerTurn.htmlContent)
+                            , attribute "time" (currentTime |> toString)
+                            , onMyElementChange ContentChanged
+                            ]
+                            []
                         ]
                     ]
                 ]

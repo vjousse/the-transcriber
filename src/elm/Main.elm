@@ -20,7 +20,6 @@ import Init
 import Layout
 import Messages exposing (Msg(..))
 import Model exposing (Model)
-import Ports
 import Tasks
 import Types exposing (DomType(..), LastLoadedInfo, SpeakerTurn, TurnContent, VisibleIndices)
 import Utils
@@ -62,18 +61,10 @@ update msg model =
 
         --|> loadMoreSpeakersIfNeeded
         Fetch (Ok speakerTurns) ->
-            let
-                -- Send the first speaker
-                cmds =
-                    Cmd.batch
-                        (List.map (\value -> loadSpeakerIndexCmd value speakerTurns)
-                            [ 0 ]
-                        )
-            in
-                ( { model | speakerTurns = speakerTurns }
-                  --, Ports.sendSpeakerTurns speakerTurns
-                , cmds
-                )
+            ( { model | speakerTurns = speakerTurns }
+              --, Ports.sendSpeakerTurns speakerTurns
+            , Cmd.none
+            )
 
         Fetch (Err error) ->
             let
@@ -119,18 +110,8 @@ update msg model =
                 , Cmd.map MsgAudioPlayer audioPlayerCmds
                 )
 
-        ReactOk ->
-            let
-                debug =
-                    Debug.log "[Elm::ReactLoaded]" ""
-            in
-                ( model, Tasks.getDomHeight "speaker-turns" -1 Types.SpeakerTurnsDiv )
-
         SetLanguage lang ->
             ( { model | currentLanguage = lang }, Cmd.none )
-
-        SpeakerLoaded turnContent ->
-            ( model, Cmd.none )
 
         UpdateTurnContent turnContent ->
             ( model, Cmd.none )
@@ -147,8 +128,7 @@ update msg model =
 
 
 --|> loadMoreSpeakersIfNeeded
-
-
+{--
 loadSpeakerIndexCmd : Int -> Array SpeakerTurn -> Cmd Messages.Msg
 loadSpeakerIndexCmd index speakerTurns =
     case (Array.get index speakerTurns) of
@@ -157,9 +137,7 @@ loadSpeakerIndexCmd index speakerTurns =
 
         Nothing ->
             Cmd.none
-
-
-
+--}
 {--
 Compute the height of the first loaded elements if any
 
@@ -334,6 +312,9 @@ updateSpeakerDivHeight index height ( model, messages ) =
         ( { model | speakerTurns = newSpeakerTurns }, messages )
 
 
+
+{--
+
 loadMoreSpeakersIfNeeded : ( Model, Cmd Messages.Msg ) -> ( Model, Cmd Messages.Msg )
 loadMoreSpeakersIfNeeded ( model, messages ) =
     let
@@ -367,6 +348,8 @@ loadMoreSpeakersIfNeeded ( model, messages ) =
                 -- one
                 Nothing ->
                     ( model, loadSpeakerIndexCmd 0 model.speakerTurns )
+
+--}
 
 
 updateSpeakerTurnsDivHeight : Int -> Float -> ( Model, Cmd Messages.Msg ) -> ( Model, Cmd Messages.Msg )
@@ -432,7 +415,4 @@ subscriptions model =
     Sub.batch
         [ Keyboard.downs KeyDown
         , Keyboard.ups KeyUp
-        , Ports.getSpeakerTurnContent UpdateTurnContent
-        , Ports.reactOk (\_ -> ReactOk)
-        , Ports.speakerLoaded SpeakerLoaded
         ]

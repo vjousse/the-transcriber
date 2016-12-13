@@ -9,6 +9,7 @@ class CustomTextEditorElement extends HTMLElement {
 
     shadow.innerHTML = '<style>' +
     '.highlighted {background-color: rgb(248, 222, 126);}' +
+    '[contenteditable]:focus { outline: 0px solid transparent; }' +
     '</style>';
 
     this.mainDiv = document.createElement('div');
@@ -43,6 +44,17 @@ class CustomTextEditorElement extends HTMLElement {
 
       if(!this.init) {
         this.mainDiv.innerHTML = newValue;
+
+        var changedEvent = new CustomEvent(
+          'content-changed',
+          { 
+            detail: {
+              'htmlContent': this.mainDiv.innerHTML,
+              'textContent': this.mainDiv.textContent}
+          });
+
+        this.mainDiv.dispatchEvent(changedEvent);
+
         this.init=true;
       }
 

@@ -78,6 +78,7 @@ export class SpeakerTurnEditor {
       audio.pause();
     });
 
+    /**
     app.ports.sendCurrentTime.subscribe((timestamp) => {
       this.highlightWord(this.appState.turns, timestamp);
     });
@@ -87,6 +88,7 @@ export class SpeakerTurnEditor {
       console.log(speakerTurn);
       this.loadSpeaker(this.appState.turns, index, speakerTurn);
     });
+    **/
   }
 
   getTurnContent(index) {

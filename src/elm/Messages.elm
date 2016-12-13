@@ -20,8 +20,6 @@ type Msg
     | KeyDown Keyboard.KeyCode
     | KeyUp Keyboard.KeyCode
     | MsgAudioPlayer Audio.Player.Msg
-    | ReactOk
     | SetLanguage Language
-    | SpeakerLoaded TurnContent
     | UpdateTurnContent TurnContent
     | UserScroll Float

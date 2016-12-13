@@ -17,7 +17,7 @@ import Icons
 import Messages exposing (Msg(..))
 import Model exposing (Model)
 import Translation.Utils exposing (..)
-import Types exposing (Milliseconds, SpeakerTurn, SpeakerTurn)
+import Types exposing (Milliseconds, SpeakerTurn, SpeakerTurn, TurnContent)
 import Utils
 
 
@@ -134,15 +134,7 @@ bodyView model =
                     , id "speaker-turns"
                     , onScroll UserScroll
                     ]
-                    [ div []
-                        [ Html.node "custom-text-editor"
-                            [ attribute "content" model.testContent
-                            , attribute "time" (model.audioPlayer.currentTime |> toString)
-                            , onMyElementChange ContentChanged
-                            ]
-                            []
-                        ]
-                    , div [ class "streamline b-l m-b m-l" ]
+                    [ div [ class "streamline b-l m-b m-l" ]
                         [ speakerTurns model ]
                     ]
                 , div [ class "col-sm-4 col-lg-3" ]
@@ -234,7 +226,7 @@ speakerTurn currentTime ( index, speakerTurn ) =
                           Html.node "custom-text-editor"
                             [ attribute "content" (Maybe.withDefault "" speakerTurn.htmlContent)
                             , attribute "time" (currentTime |> toString)
-                            , onMyElementChange ContentChanged
+                            , onMyElementChange UpdateTurnContent index
                             ]
                             []
                         ]
@@ -243,14 +235,17 @@ speakerTurn currentTime ( index, speakerTurn ) =
             ]
 
 
-onMyElementChange : (String -> msg) -> Html.Attribute msg
-onMyElementChange message =
-    on "content-changed" <| (Json.map message decodeMyElementEvent)
+onMyElementChange : (TurnContent -> msg) -> Int -> Html.Attribute msg
+onMyElementChange message index =
+    on "content-changed" <| (Json.map (message) (decodeMyElementEvent index))
 
 
-decodeMyElementEvent : Json.Decoder String
-decodeMyElementEvent =
-    Json.at [ "detail", "htmlContent" ] Json.string
+decodeMyElementEvent : Int -> Json.Decoder TurnContent
+decodeMyElementEvent index =
+    Json.map3 TurnContent
+        (Json.succeed index)
+        (Json.at [ "detail", "textContent" ] Json.string)
+        (Json.at [ "detail", "htmlContent" ] Json.string)
 
 
 onScroll : (Float -> msg) -> Html.Attribute msg

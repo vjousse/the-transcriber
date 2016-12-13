@@ -17,6 +17,7 @@ class CustomTextEditorElement extends HTMLElement {
     this.mainDiv.setAttribute('contenteditable', 'true');
 
     this.mainDiv.addEventListener("input", event => {
+
       var changedEvent = new CustomEvent(
         'content-changed',
         { 
@@ -43,17 +44,20 @@ class CustomTextEditorElement extends HTMLElement {
     if (attr == 'content') {
 
       if(!this.init) {
+
         this.mainDiv.innerHTML = newValue;
 
-        var changedEvent = new CustomEvent(
-          'content-changed',
-          { 
-            detail: {
-              'htmlContent': this.mainDiv.innerHTML,
-              'textContent': this.mainDiv.textContent}
+        // Trick to fire the input event after loading the content
+        // without setTimeout, the event is not fired
+        setTimeout(() => { 
+
+          var event = new Event('input', {
+            'bubbles': true,
+            'cancelable': true
           });
 
-        this.mainDiv.dispatchEvent(changedEvent);
+          this.mainDiv.dispatchEvent(event);
+        }, 1);
 
         this.init=true;
       }

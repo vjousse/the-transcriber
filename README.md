@@ -2,6 +2,10 @@
 
 Open source transcribing tool. Respects the privacy of your data, can be plugged to many external tools.
 
+# Requirements
+
+Because I'm testing [WebComponents](http://webcomponents.org/) with this project, you will have to use an up to date Chrome/Chromium version. Unfortunately Firefox support for WebComponents is pretty poor at the moment.
+
 
 # Installation
 

@@ -68,7 +68,7 @@ Open [http://localhost:8080/](http://localhost:8080/) in your browser and enjoy.
 
 # Links
 
-RichText model: https://gist.github.com/avh4/bbd7b8153df0ef00896e6e34e83d42cb / https://twitter.com/janiczek/status/784291419405942784
-https://drive.googleblog.com/2010/05/whats-different-about-new-google-docs.html
-https://github.com/eeue56/elm-server-side-renderer
-https://github.com/ritzyed/ritzy
+- RichText model: https://gist.github.com/avh4/bbd7b8153df0ef00896e6e34e83d42cb / https://twitter.com/janiczek/status/784291419405942784
+- https://drive.googleblog.com/2010/05/whats-different-about-new-google-docs.html
+- https://github.com/eeue56/elm-server-side-renderer
+- https://github.com/ritzyed/ritzy

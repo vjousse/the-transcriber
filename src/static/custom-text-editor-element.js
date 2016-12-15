@@ -36,8 +36,31 @@ class CustomTextEditorElement extends HTMLElement {
   }
 
   // Monitor the 'name' attribute for changes.
-  static get observedAttributes() {return ['content', 'time']; }
+  static get observedAttributes() {return ['content', 'time', 'current']; }
 
+  get starttime() {
+    return this.getAttribute('starttime');
+  }
+
+  set starttime(val) {
+    if (val) {
+      this.setAttribute('starttime', val);
+    } else {
+      this.removeAttribute('starttime');
+    }
+  }
+
+  get endtime() {
+    return this.getAttribute('endtime');
+  }
+
+  set endtime(val) {
+    if (val) {
+      this.setAttribute('endtime', val);
+    } else {
+      this.removeAttribute('endtime');
+    }
+  }
   // Respond to attribute changes.
   attributeChangedCallback(attr, oldValue, newValue) {
 
@@ -75,6 +98,8 @@ class CustomTextEditorElement extends HTMLElement {
 
 
       if(timestamp == 0) return;
+
+      if(this.starttime && this.endtime && (this.starttime > timestamp || timestamp > this.endtime)) return;
 
       var spans = this.mainDiv.getElementsByClassName("word");
       console.log(spans);

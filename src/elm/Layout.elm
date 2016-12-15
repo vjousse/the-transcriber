@@ -221,11 +221,11 @@ speakerTurn currentTime ( index, speakerTurn ) =
                         [ class "summernote note-air-editor note-editable panel-body"
                         , id <| Utils.speakerIndexToCssId index
                         ]
-                        [ --div [ class "speaker-pace-activity" ] []
-                          --div [ (Html.Attributes.property "innerHTML" (Json.Encode.string (Maybe.withDefault "" speakerTurn.htmlContent))) ] []
-                          Html.node "custom-text-editor"
+                        [ Html.node "custom-text-editor"
                             [ attribute "content" (Maybe.withDefault "" speakerTurn.htmlContent)
                             , attribute "time" (currentTime |> toString)
+                            , attribute "startTime" (speakerTurn.start |> toString)
+                            , attribute "endTime" (speakerTurn.end |> toString)
                             , onMyElementChange UpdateTurnContent index
                             ]
                             []

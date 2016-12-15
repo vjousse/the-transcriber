@@ -12,6 +12,7 @@ import String
 -- App import
 
 import Audio.View
+import Audio.Player
 import DateTime.Utils exposing (formatTimeInfo)
 import Icons
 import Messages exposing (Msg(..))
@@ -226,7 +227,8 @@ speakerTurn currentTime ( index, speakerTurn ) =
                             , attribute "time" (currentTime |> toString)
                             , attribute "startTime" (speakerTurn.start |> toString)
                             , attribute "endTime" (speakerTurn.end |> toString)
-                            , onMyElementChange UpdateTurnContent index
+                            , onTextEditorChange UpdateTurnContent index
+                            , onTextEditorWordClick (\n -> MsgAudioPlayer (Audio.Player.MoveToCurrentTime n))
                             ]
                             []
                         ]
@@ -235,17 +237,27 @@ speakerTurn currentTime ( index, speakerTurn ) =
             ]
 
 
-onMyElementChange : (TurnContent -> msg) -> Int -> Html.Attribute msg
-onMyElementChange message index =
-    on "content-changed" <| (Json.map (message) (decodeMyElementEvent index))
+onTextEditorChange : (TurnContent -> msg) -> Int -> Html.Attribute msg
+onTextEditorChange message index =
+    on "content-changed" <| (Json.map (message) (decodeEditorOnChangeEvent index))
 
 
-decodeMyElementEvent : Int -> Json.Decoder TurnContent
-decodeMyElementEvent index =
+decodeEditorOnChangeEvent : Int -> Json.Decoder TurnContent
+decodeEditorOnChangeEvent index =
     Json.map3 TurnContent
         (Json.succeed index)
         (Json.at [ "detail", "textContent" ] Json.string)
         (Json.at [ "detail", "htmlContent" ] Json.string)
+
+
+onTextEditorWordClick : (Float -> msg) -> Html.Attribute msg
+onTextEditorWordClick message =
+    on "word-clicked" <| (Json.map message decodeEditorClickEvent)
+
+
+decodeEditorClickEvent : Json.Decoder Float
+decodeEditorClickEvent =
+    (Json.at [ "detail", "start" ] Json.float)
 
 
 onScroll : (Float -> msg) -> Html.Attribute msg

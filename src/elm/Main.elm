@@ -2,10 +2,6 @@ module Main exposing (..)
 
 import Array exposing (Array)
 import Dict exposing (Dict)
-
-
---import TimeTravel.Html.App as TimeTravel
-
 import Html exposing (div, text, Html)
 import Html.Attributes exposing (id, class)
 import Keyboard
@@ -39,9 +35,6 @@ update : Messages.Msg -> Model -> ( Model, Cmd Messages.Msg )
 update msg model =
     case Debug.log "[Elm::Main Update] " msg of
         --case msg of
-        ContentChanged newContent ->
-            ( { model | testContent = newContent }, Cmd.none )
-
         DomHeight id index divType (Err domError) ->
             let
                 debug =

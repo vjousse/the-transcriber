@@ -16,6 +16,27 @@ class CustomTextEditorElement extends HTMLElement {
 
     this.mainDiv.setAttribute('contenteditable', 'true');
 
+    // Handle double click on a word
+    this.mainDiv.addEventListener("dblclick", event => {
+      if(event.target.dataset.start) {
+
+      var clickEvent = new CustomEvent(
+        'word-clicked',
+        { 
+          detail: {
+            'start': parseFloat(event.target.dataset.start),
+            'textContent': event.target.textContent,
+            'htmlContent': event.target.innerHTML}
+        });
+
+
+        console.log("Fire click", clickEvent);
+        this.dispatchEvent(clickEvent);
+      }
+
+    });
+
+    // Handle input insertion
     this.mainDiv.addEventListener("input", event => {
 
       var changedEvent = new CustomEvent(
@@ -26,6 +47,7 @@ class CustomTextEditorElement extends HTMLElement {
             'textContent': event.target.textContent}
         });
 
+      console.log("Fire changed", changedEvent);
       this.dispatchEvent(changedEvent);
 
     });
@@ -35,9 +57,11 @@ class CustomTextEditorElement extends HTMLElement {
 
   }
 
-  // Monitor the 'name' attribute for changes.
+  // Monitor the attributes for changes.
   static get observedAttributes() {return ['content', 'time', 'current']; }
 
+
+  // Reflect properties to attributes
   get starttime() {
     return this.getAttribute('starttime');
   }
@@ -50,6 +74,7 @@ class CustomTextEditorElement extends HTMLElement {
     }
   }
 
+  // Reflect properties to attributes
   get endtime() {
     return this.getAttribute('endtime');
   }
@@ -88,7 +113,6 @@ class CustomTextEditorElement extends HTMLElement {
     } else if (attr == 'time') {
 
       var timestamp = parseInt(newValue)/1000;
-      console.log("Custom time changed", timestamp);
 
       // Unhighlight stuff already highlighted
       var spansHighlighted = this.mainDiv.getElementsByClassName("highlighted");
@@ -99,10 +123,10 @@ class CustomTextEditorElement extends HTMLElement {
 
       if(timestamp == 0) return;
 
+      // Don't highlight if the time is not in the start / end time range
       if(this.starttime && this.endtime && (this.starttime > timestamp || timestamp > this.endtime)) return;
 
       var spans = this.mainDiv.getElementsByClassName("word");
-      console.log(spans);
       var found = false;
 
       var span = Array.prototype.find.call( spans, function(elem){

@@ -1,7 +1,6 @@
 module Main exposing (..)
 
 import Array exposing (Array)
-import Dict exposing (Dict)
 import Html exposing (div, text, Html)
 import Html.Attributes exposing (id, class)
 import Keyboard
@@ -54,10 +53,21 @@ update msg model =
 
         --|> loadMoreSpeakersIfNeeded
         Fetch (Ok speakerTurns) ->
-            ( { model | speakerTurns = speakerTurns }
-              --, Ports.sendSpeakerTurns speakerTurns
-            , Cmd.none
-            )
+            let
+                -- At the very list, the first element should be visible
+                newList =
+                    Maybe.map
+                        (\s -> { s | visible = True })
+                        (Array.get 0 speakerTurns)
+                        |> Maybe.map (\s -> Array.set 0 s speakerTurns)
+
+                updatedSpeakerTurns =
+                    Maybe.withDefault speakerTurns newList
+            in
+                ( { model | speakerTurns = updatedSpeakerTurns }
+                  --, Ports.sendSpeakerTurns speakerTurns
+                , Cmd.none
+                )
 
         Fetch (Err error) ->
             let
@@ -307,7 +317,6 @@ updateSpeakerDivHeight index height ( model, messages ) =
 
 
 {--
-
 loadMoreSpeakersIfNeeded : ( Model, Cmd Messages.Msg ) -> ( Model, Cmd Messages.Msg )
 loadMoreSpeakersIfNeeded ( model, messages ) =
     let
@@ -341,16 +350,12 @@ loadMoreSpeakersIfNeeded ( model, messages ) =
                 -- one
                 Nothing ->
                     ( model, loadSpeakerIndexCmd 0 model.speakerTurns )
-
 --}
 
 
 updateSpeakerTurnsDivHeight : Int -> Float -> ( Model, Cmd Messages.Msg ) -> ( Model, Cmd Messages.Msg )
 updateSpeakerTurnsDivHeight index height ( model, messages ) =
-    ( { model
-        | speakerTurnsHeight = Just height
-        , loadedSpeakerTurns = Dict.insert index height model.loadedSpeakerTurns
-      }
+    ( { model | speakerTurnsHeight = Just height }
     , messages
     )
 

@@ -1,7 +1,6 @@
 module Model exposing (..)
 
 import Array exposing (Array)
-import Dict exposing (Dict)
 import Keyboard
 import Set exposing (Set)
 import ISO8601

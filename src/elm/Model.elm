@@ -21,14 +21,9 @@ type alias Model =
     { currentLanguage : Language
     , audioPlayer : Audio.Player.Model
     , keysDown : Set Keyboard.KeyCode
-    , nbSpeakers : Maybe Int
-    , currentSpeakerTurn : Maybe Int
     , lastSave : Maybe ISO8601.Time
     , scrollTop : Float
     , speakerTurnsHeight : Maybe Float
     , speakerTurns : Array SpeakerTurn
-    , visibleIndices : List Int
-    , loadedSpeakerTurns : Dict Int Float
     , visibleMargin : Float
-    , testContent : String
     }

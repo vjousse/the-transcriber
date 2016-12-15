@@ -1,7 +1,6 @@
 module Init exposing (init, Flags)
 
 import Array exposing (Array)
-import Dict exposing (Dict)
 import Set exposing (Set)
 
 
@@ -46,16 +45,11 @@ init flags =
         { audioPlayer = audioPlayerInit
         , currentLanguage = English
         , keysDown = Set.empty
-        , nbSpeakers = Nothing
-        , currentSpeakerTurn = Nothing
         , lastSave = Nothing
         , scrollTop = 0
         , speakerTurns = Array.empty
         , speakerTurnsHeight = Nothing
-        , visibleIndices = []
-        , loadedSpeakerTurns = Dict.empty
         , visibleMargin = 300
-        , testContent = "<p><strong>Locuteur S0 :</strong> <span class='word' data-start='0.01'>publique </span><span class='word' data-start='0.73'>et </span><span class='word' data-start='0.84'>en </span><span class='word' data-start='0.96'>2004 </span></p>This is some <b>test</b> content"
         }
             ! [ Cmd.batch
                     [ Cmd.map MsgAudioPlayer audioPlayerCmds

@@ -88,6 +88,8 @@ audioControls model =
         )
     , controlButton model.controls.backward Backward (model.backwardShortcut |> Set.toList |> List.map (Keyboard.Extra.stringFromCode "") |> String.join "+") "\xE020"
     , controlButton model.controls.forward Forward (model.forwardShortcut |> Set.toList |> List.map (Keyboard.Extra.stringFromCode "") |> String.join "+") "\xE01F"
+    , controlButton model.controls.slower Slower (model.slowerShortcut |> Set.toList |> List.map (Keyboard.Extra.stringFromCode "") |> String.join "+") "\xE15B"
+    , controlButton model.controls.faster Faster (model.fasterShortcut |> Set.toList |> List.map (Keyboard.Extra.stringFromCode "") |> String.join "+") "\xE145"
     ]
 
 

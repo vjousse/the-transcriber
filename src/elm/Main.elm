@@ -11,7 +11,7 @@ import Set exposing (Set)
 
 -- App imports
 
-import Audio.Player exposing (Msg(Backward, Forward, Toggle))
+import Audio.Player exposing (Msg(Backward, Faster, Forward, Slower, Toggle))
 import Init
 import Layout
 import Messages exposing (Msg(..))
@@ -379,6 +379,10 @@ checkKeyPressedForShortcuts keysDown model =
         Just Forward
     else if (Set.intersect keysDown model.audioPlayer.backwardShortcut) == model.audioPlayer.backwardShortcut then
         Just Backward
+    else if (Set.intersect keysDown model.audioPlayer.slowerShortcut) == model.audioPlayer.slowerShortcut then
+        Just Slower
+    else if (Set.intersect keysDown model.audioPlayer.fasterShortcut) == model.audioPlayer.fasterShortcut then
+        Just Faster
     else
         Nothing
 

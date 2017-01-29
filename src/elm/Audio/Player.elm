@@ -52,6 +52,8 @@ type alias Model =
     , toggleShortcut : Set Keyboard.KeyCode
     , forwardShortcut : Set Keyboard.KeyCode
     , backwardShortcut : Set Keyboard.KeyCode
+    , slowerShortcut : Set Keyboard.KeyCode
+    , fasterShortcut : Set Keyboard.KeyCode
     }
 
 
@@ -84,6 +86,8 @@ type alias Flags =
     , toggleShortcut : Set Keyboard.KeyCode
     , forwardShortcut : Set Keyboard.KeyCode
     , backwardShortcut : Set Keyboard.KeyCode
+    , slowerShortcut : Set Keyboard.KeyCode
+    , fasterShortcut : Set Keyboard.KeyCode
     }
 
 
@@ -98,6 +102,8 @@ init flags =
     , toggleShortcut = flags.toggleShortcut
     , forwardShortcut = flags.forwardShortcut
     , backwardShortcut = flags.backwardShortcut
+    , slowerShortcut = flags.slowerShortcut
+    , fasterShortcut = flags.fasterShortcut
     , playing = False
     , currentTime = 0
     , playbackRate = 1

@@ -41,6 +41,14 @@ init flags =
                     [ Keyboard.Extra.Control, Keyboard.Extra.ArrowLeft ]
                         |> List.map Keyboard.Extra.toCode
                         |> Set.fromList
+                , slowerShortcut =
+                    [ Keyboard.Extra.F9 ]
+                        |> List.map Keyboard.Extra.toCode
+                        |> Set.fromList
+                , fasterShortcut =
+                    [ Keyboard.Extra.F10 ]
+                        |> List.map Keyboard.Extra.toCode
+                        |> Set.fromList
                 }
     in
         { audioPlayer = audioPlayerInit
